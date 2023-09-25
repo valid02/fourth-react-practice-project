@@ -12,11 +12,21 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
-    // در اینجا کد بالا موقع اجرای دفعه اول کامپوننت، اجرا میشود
-    // و فقط وقتی یکی از وابستگی های زیر تغییر کند دوباره اجرا میشود
+    // این کار برای بهینه سازی عملکرد است
+    // اینطوری دیگه با هر ضربه کلید این کد اجرا نمیشه و فقط وقتی بین تایپ کمی وقفه بیفتد اجرا میشود
+    // و این بهینه سازی بزرگی است مخصوصا برای مواردی که نیاز است به سرور درخواست ارسال کنیم
+    // در اینصورت درخواست های خیلی کمتری ارسال میشود
+    const identifier = setTimeout(() => {
+      console.log('Checking form validity!');
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 500);
+
+    return () => {
+      console.log('CLEANUP');
+      clearTimeout(identifier);
+    };
   }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {
