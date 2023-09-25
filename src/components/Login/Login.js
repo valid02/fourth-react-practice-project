@@ -11,6 +11,16 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+  // دوره useEffect Summary توضیحات بیشتر در فیلم
+  useEffect(() => {
+   console.log('hello'); 
+
+   return () => {
+    console.log('cleanup');
+   }
+  }, [])
+  
+
   useEffect(() => {
     // این کار برای بهینه سازی عملکرد است
     // اینطوری دیگه با هر ضربه کلید این کد اجرا نمیشه و فقط وقتی بین تایپ کمی وقفه بیفتد اجرا میشود
